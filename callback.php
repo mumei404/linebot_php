@@ -1,6 +1,6 @@
 <?php
 
-$accessToken = getenv('LLINE_CHANNEL_TOKEN');
+$accessToken = '';
 
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
