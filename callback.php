@@ -1,6 +1,6 @@
 <?php
 
-$accessToken = '/82I1QR4wdetz04AnGka9415aU15wdHzeiOOOMEBGHo=';
+$accessToken = '+88toapKi7yd6MTgDZQBqtkXNzeRF+dY9dmYg00sx5KBvLHIK1SGQEnakDV5Sr7d9rS9NrGwiVp17WpE9CeYM4VWKHSrRgGLUzjkL41ItSrOrDLJBv0OiH87LVO189/LedsEgAytXEc7YWxXRDET5AdB04t89/1O/w1cDnyilFU=';
 
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
