@@ -1,6 +1,6 @@
 <?php
 
-$accessToken = '';
+$accessToken = '/82I1QR4wdetz04AnGka9415aU15wdHzeiOOOMEBGHo=';
 
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
