@@ -1,6 +1,6 @@
 <?php
 
-$accessToken = '+88toapKi7yd6MTgDZQBqtkXNzeRF+dY9dmYg00sx5KBvLHIK1SGQEnakDV5Sr7d9rS9NrGwiVp17WpE9CeYM4VWKHSrRgGLUzjkL41ItSrOrDLJBv0OiH87LVO189/LedsEgAytXEc7YWxXRDET5AdB04t89/1O/w1cDnyilFU=';
+$accessToken = getenv('CHANNEL_ACCESS_TOKEN');
 
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
@@ -121,6 +121,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json; charser=UTF-8',
     'Authorization: Bearer ' . $accessToken
 ));
+curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+curl_setopt($ch, CURLOPT_PROXYPORT, '80');
+curl_setopt($ch, CURLOPT_PROXY, getenv('FIXIE_URL'));
 $result = curl_exec($ch);
 error_log($result);
 curl_close($ch);
