@@ -2,116 +2,31 @@
 
 $accessToken = getenv('CHANNEL_ACCESS_TOKEN');
 
+// apiから送信されて来たイベントオブジェクトを取得
 $jsonString = file_get_contents('php://input');
 error_log($jsonString);
 $jsonObj = json_decode($jsonString);
 
+// イベントオブジェクトから必要な情報を抽出
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
-// 送られてきたメッセージの中身からレスポンスのタイプを選択
-if ($message->{"text"} == '確認') {
-    // 確認ダイアログタイプ
-    $messageData = [
-        'type' => 'template',
-        'altText' => '確認ダイアログ',
-        'template' => [
-            'type' => 'confirm',
-            'text' => '元気ですかー？',
-            'actions' => [
-                [
-                    'type' => 'message',
-                    'label' => '元気です',
-                    'text' => '元気です'
-                ],
-                [
-                    'type' => 'message',
-                    'label' => 'まあまあです',
-                    'text' => 'まあまあです'
-                ],
-            ]
-        ]
-    ];
-} elseif ($message->{"text"} == 'ボタン') {
-    // ボタンタイプ
-    $messageData = [
-        'type' => 'template',
-        'altText' => 'ボタン',
-        'template' => [
-            'type' => 'buttons',
-            'title' => 'タイトルです',
-            'text' => '選択してね',
-            'actions' => [
-                [
-                    'type' => 'postback',
-                    'label' => 'webhookにpost送信',
-                    'data' => 'value'
-                ],
-                [
-                    'type' => 'uri',
-                    'label' => 'googleへ移動',
-                    'uri' => 'https://google.com'
-                ]
-            ]
-        ]
-    ];
-} elseif ($message->{"text"} == 'カルーセル') {
-    // カルーセルタイプ
-    $messageData = [
-        'type' => 'template',
-        'altText' => 'カルーセル',
-        'template' => [
-            'type' => 'carousel',
-            'columns' => [
-                [
-                    'title' => 'カルーセル1',
-                    'text' => 'カルーセル1です',
-                    'actions' => [
-                        [
-                            'type' => 'postback',
-                            'label' => 'webhookにpost送信',
-                            'data' => 'value'
-                        ],
-                        [
-                            'type' => 'uri',
-                            'label' => '美容の口コミ広場を見る',
-                            'uri' => 'http://clinic.e-kuchikomi.info/'
-                        ]
-                    ]
-                ],
-                [
-                    'title' => 'カルーセル2',
-                    'text' => 'カルーセル2です',
-                    'actions' => [
-                        [
-                            'type' => 'postback',
-                            'label' => 'webhookにpost送信',
-                            'data' => 'value'
-                        ],
-                        [
-                            'type' => 'uri',
-                            'label' => '女美会を見る',
-                            'uri' => 'https://jobikai.com/'
-                        ]
-                    ]
-                ],
-            ]
-        ]
-    ];
-} else {
-    // それ以外は送られてきたテキストをオウム返し
-    $messageData = [
+
+// ユーザーからのメッセージに対し、おうむ返しをする
+$messageData = [
+    'replyToken' => $replyToken,
+    'messages' => [
+      [
         'type' => 'text',
         'text' => $message->{"text"}
-    ];
-}
-
-$response = [
-    'replyToken' => $replyToken,
-    'messages' => [$messageData]
+      ]
+    ]
 ];
+
 error_log(json_encode($response));
 
+
+// curlを用いてメッセージを返信する
 $ch = curl_init('https://api.line.me/v2/bot/message/reply');
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
