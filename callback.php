@@ -13,6 +13,13 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 
 
 // ユーザーからのメッセージに対し、おうむ返しをする
+
+// A3RT TalkAPI
+$url = "https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk";
+
+// line
+// $url = 'https://api.line.me/v2/bot/message/reply';
+
 $messageData = [
     'replyToken' => $replyToken,
     'messages' => [
@@ -23,15 +30,20 @@ $messageData = [
     ]
 ];
 
+$data = [
+    'apikey' => getenv('API_KEY'),
+    'query' => $messageData
+];
+
 error_log(json_encode($response));
 
 
 // curlを用いてメッセージを返信する
-$ch = curl_init('https://api.line.me/v2/bot/message/reply');
+$ch = curl_init($url);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($messageData));
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json; charser=UTF-8',
     'Authorization: Bearer ' . $accessToken
