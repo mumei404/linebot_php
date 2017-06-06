@@ -31,7 +31,7 @@ $messageData = [
 ];
 
 $data = [
-    'apikey' => getenv('API_KEY'),
+    'apikey' => 'rtVtdCLZ20C5N4CiJ2oMD0LoXgNlL2Fn',
     'query' => $message->{"text"}
 ];
 
