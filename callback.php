@@ -32,7 +32,7 @@ $messageData = [
 
 $data = [
     'apikey' => getenv('API_KEY'),
-    'query' => $messageData
+    'query' => $message->{"text"}
 ];
 
 error_log(json_encode($response));
