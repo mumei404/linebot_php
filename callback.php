@@ -22,7 +22,7 @@ $messageData = [
     'messages' => [
       [
         'type' => 'text',
-        'text' => getTalk($message->{"text"});
+        'text' => getTalk($message->{"text"})
       ]
     ]
 ];
