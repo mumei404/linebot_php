@@ -39,7 +39,8 @@ error_log(json_encode($response));
 
 
 // curlを用いてメッセージを返信する
-$ch = curl_init($url);
+$ch = curl_init();
+curl_setopt($ch, CURL_URL, $url);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
