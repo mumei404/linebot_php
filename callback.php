@@ -18,7 +18,7 @@ $url = 'https://api.line.me/v2/bot/message/reply';
 if ($type == "sticker") {
     $messageData = [
         'replyToken' => $replyToken,
-        'message' => [
+        'messages' => [
             [
                 'type' => 'text',
                 'text' => 'かわいいね〜'
