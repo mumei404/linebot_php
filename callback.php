@@ -22,6 +22,27 @@ if ($type == "sticker") {
         'packageId' => '3',
         'stickerId' => '234'
     ];
+} else if ($text == "クイズ") {
+    $messageData = [
+        'type' => 'template',
+        'altText' => 'this is a template.',
+        'template' => [
+            'type' => 'confirm',
+            'text' => '私はどこに住んでいるでしょうか？',
+            'actions' => [
+                [
+                    'type' => 'message',
+                    'label' => '北海道',
+                    'text' => '北海道'
+                ],
+                [
+                    'type' => 'message',
+                    'label' => '千葉',
+                    'text' => '千葉'
+                ]
+            ]
+        ]
+    ];
 } else {
     $messageData = [
         'type' => 'text',
