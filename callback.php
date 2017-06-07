@@ -20,8 +20,9 @@ if ($type == "sticker") {
         'replyToken' => $replyToken,
         'messages' => [
             [
-                'type' => 'text',
-                'text' => 'かわいいね〜'
+                'type' => 'sticker',
+                'packageId' => '2',
+                'stickerId' => '3'
             ]
         ]
     ];
