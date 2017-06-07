@@ -21,8 +21,8 @@ if ($type == "sticker") {
         'messages' => [
             [
                 'type' => 'sticker',
-                'packageId' => '2',
-                'stickerId' => '3'
+                'packageId' => '3',
+                'stickerId' => '234'
             ]
         ]
     ];
