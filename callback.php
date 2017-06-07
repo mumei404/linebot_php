@@ -11,7 +11,6 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $type = $message->{"type"};
-$text = $message->{"text"};
 
 // APIからメッセージを取得
 $url = 'https://api.line.me/v2/bot/message/reply';
@@ -31,7 +30,7 @@ if ($type == "sticker") {
         'messages' => [
             [
                 'type' => 'text',
-                'text' => chat($text)
+                'text' => chat($message->{"text"})
             ]
         ]
     ];
