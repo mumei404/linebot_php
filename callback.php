@@ -11,28 +11,21 @@ $jsonObj = json_decode($jsonString);
 $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $type = $message->{"type"};
+$text = $message->{"text"};
 
 // APIからメッセージを取得
 $url = 'https://api.line.me/v2/bot/message/reply';
 
 if ($type == "sticker") {
     $messageData = [
-        'messages' => [
-            [
-                'type' => 'sticker',
-                'packageId' => '3',
-                'stickerId' => '234'
-            ]
-        ]
+        'type' => 'sticker',
+        'packageId' => '3',
+        'stickerId' => '234'
     ];
 } else {
     $messageData = [
-        'messages' => [
-            [
-                'type' => 'text',
-                'text' => chat($message->{"text"})
-            ]
-        ]
+        'type' => 'text',
+        'text' => chat($text)
     ];
 }
 
