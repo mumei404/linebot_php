@@ -148,7 +148,7 @@ function getToken () {
         'Content-Type: application/json',
         'Accept: application/jwt',
         'Ocp-Apim-Subscription-Key: ' . getenv('AZURE_API_KEY');
-    ]
+    ];
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,  $url);
