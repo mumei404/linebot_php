@@ -158,7 +158,7 @@ function translator ($accessToken, $text) {
     $url = 'https://api.microsofttranslator.com/v2/http.svc/Translate?';
     $params = [
         'text' => $text,
-        'to' => 'en'.
+        'to' => 'en',
         'from' => 'ja'
     ];
     
