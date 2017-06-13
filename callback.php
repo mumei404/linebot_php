@@ -183,8 +183,8 @@ function translator ($accessToken, $text) {
     
     $result = curl_exec($ch);
     error_log($result);
-   // preg_match('/>(.+?)<\/string>/', $result, $m);
+    preg_match('/>(.+?)<\/string>/', $result, $m);
     
-    //return $m[1];
-    return json_decode($result);
+    return $m[1];
+    //return json_decode($result);
 }
