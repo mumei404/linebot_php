@@ -150,8 +150,9 @@ function getToken () {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    
-    return json_decode(curl_exec($ch));
+    $result = curl_exec($ch);
+    error_log($result);
+    return json_decode($result);
 }
 
 function translator ($accessToken, $text) {
@@ -171,7 +172,9 @@ function translator ($accessToken, $text) {
     'Authorization: Bearer ' . $accessToken
     ));
     
-    preg_match('/>(.+?)<\/string>/',curl_exec($ch), $m);
+    $result = curl_exec($ch);
+    error_log($result);
+    preg_match('/>(.+?)<\/string>/', $result, $m);
     
     return $m[1];
     
