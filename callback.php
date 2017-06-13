@@ -13,6 +13,9 @@ $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $type = $message->{"type"};
 $text = $message->{"text"};
 
+// azure翻訳
+$translatedText = translator(getToken(), $text);
+
 // APIからメッセージを取得
 $url = 'https://api.line.me/v2/bot/message/reply';
 
@@ -46,7 +49,7 @@ if ($type == "sticker") {
 } else {
     $messageData = [
         'type' => 'text',
-        'text' => chat($text)
+        'text' => $translatedText
     ];
 }
 
@@ -130,4 +133,46 @@ function chat($text) {
     $res = json_decode(file_get_contents($api_url, false, $stream));
  
     return $res->utt;
+}
+
+// microsoft translator text api
+function getToken () {
+    $url = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken';
+    $data = [
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/jwt',
+        'Ocp-Apim-Subscription-Key' => getenv('AZURE_API_KEY')
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,  $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    
+    return json_decode(curl_exec($ch));
+}
+
+function translator ($accessToken, $text) {
+    $url = 'https://api.microsofttranslator.com/v2/http.svc/Translate?';
+    $params = [
+        'text' => $text,
+        'to' => 'en'.
+        'from' => 'ja'
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,  $url) . http_build_query($params);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: Bearer ' . $accessToken
+    ));
+    
+    preg_match('/>(.+?)<\/string>/',curl_exec($ch), $m);
+    
+    return $m[1];
+    
 }
