@@ -14,7 +14,7 @@ $type = $message->{"type"};
 $text = $message->{"text"};
 
 // azure翻訳
-$translatedText = translator(getToken()->access_token, $text);
+//$translatedText = translator(getToken()->access_token, $text);
 
 // APIからメッセージを取得
 $url = 'https://api.line.me/v2/bot/message/reply';
@@ -159,7 +159,7 @@ function getToken () {
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     $result = curl_exec($ch);
-    error_log($result);
+    //error_log($result);
     return json_decode($result);
 }
 
@@ -183,7 +183,7 @@ function translator ($accessToken, $text) {
     ));
     
     $result = curl_exec($ch);
-    error_log($result);
+    //error_log($result);
     preg_match('/>(.+?)<\/string>/', $result, $m);
     
     return $m[1];
