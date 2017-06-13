@@ -14,7 +14,7 @@ $type = $message->{"type"};
 $text = $message->{"text"};
 
 // azure翻訳
-$translatedText = translator(getToken(), $text);
+$translatedText = translator(getToken()->{'access_token'}, $text);
 
 // APIからメッセージを取得
 $url = 'https://api.line.me/v2/bot/message/reply';
