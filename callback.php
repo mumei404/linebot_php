@@ -172,7 +172,7 @@ function translator ($accessToken, $text) {
     ];
     
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url) . http_build_query($params);
+    curl_setopt($ch, CURLOPT_URL, $url . http_build_query($params));
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
