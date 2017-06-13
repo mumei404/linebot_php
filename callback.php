@@ -144,12 +144,20 @@ function getToken () {
         'Ocp-Apim-Subscription-Key' => getenv('AZURE_API_KEY')
     ];
     
+    $headers = [
+        'Content-Type: application/json',
+        'Accept: application/jwt',
+        'Ocp-Apim-Subscription-Key: ' . getenv('AZURE_API_KEY');
+    ]
+    
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,  $url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     $result = curl_exec($ch);
     error_log($result);
     return json_decode($result);
