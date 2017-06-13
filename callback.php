@@ -149,7 +149,7 @@ function getToken () {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
     $result = curl_exec($ch);
     error_log($result);
     return json_decode($result);
@@ -164,7 +164,7 @@ function translator ($accessToken, $text) {
     ];
     
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL,  $url) . http_build_query($params);
+    curl_setopt($ch, CURLOPT_URL, $url) . http_build_query($params);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
