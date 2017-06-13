@@ -186,5 +186,5 @@ function translator ($accessToken, $text) {
    // preg_match('/>(.+?)<\/string>/', $result, $m);
     
     //return $m[1];
-    return $result;
+    return json_decode($result);
 }
