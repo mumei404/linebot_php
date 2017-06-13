@@ -177,13 +177,14 @@ function translator ($accessToken, $text) {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Authorization: Bearer ' . $accessToken
+        'Content-Type: application/json; charset=UTF-8',
+        'Authorization: Bearer ' . $accessToken
     ));
     
     $result = curl_exec($ch);
     error_log($result);
-    preg_match('/>(.+?)<\/string>/', $result, $m);
+   // preg_match('/>(.+?)<\/string>/', $result, $m);
     
-    return $m[1];
-    
+    //return $m[1];
+    return $result;
 }
