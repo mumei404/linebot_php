@@ -49,7 +49,7 @@ if ($type == "sticker") {
 } else {
     $messageData = [
         'type' => 'text',
-        'text' => chat($text)
+        'text' => getTalk($text)
     ];
 }
 
