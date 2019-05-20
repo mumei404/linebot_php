@@ -12,7 +12,7 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $type = $message->{"type"};
 $text = $message->{"text"};
-error_log($jsonObj->{"events"}[0]->{"source"}->{"userId"})
+error_log($jsonObj->{"events"}[0]->{"source"}->{"userId"});
 
 // azure翻訳
 //$translatedText = translator(getToken()->access_token, $text);
