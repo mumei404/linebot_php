@@ -4,7 +4,7 @@ $accessToken = getenv('CHANNEL_ACCESS_TOKEN');
 
 // apiから送信されて来たイベントオブジェクトを取得
 $jsonString = file_get_contents('php://input');
-error_log($jsonString);
+// error_log($jsonString);
 $jsonObj = json_decode($jsonString);
 
 // イベントオブジェクトから必要な情報を抽出
@@ -12,6 +12,7 @@ $message = $jsonObj->{"events"}[0]->{"message"};
 $replyToken = $jsonObj->{"events"}[0]->{"replyToken"};
 $type = $message->{"type"};
 $text = $message->{"text"};
+error_log($jsonObj->{"events"}[0]->{"source"}->{"userId"})
 
 // azure翻訳
 //$translatedText = translator(getToken()->access_token, $text);
@@ -59,7 +60,7 @@ $response = [
 ];
 
 
-error_log(json_encode($response));
+// error_log(json_encode($response));
 
 
 // curlを用いてメッセージを返信する
@@ -77,7 +78,7 @@ curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
 curl_setopt($ch, CURLOPT_PROXYPORT, '80');
 curl_setopt($ch, CURLOPT_PROXY, getenv('FIXIE_URL'));
 $result = curl_exec($ch);
-error_log($result);
+// error_log($result);
 curl_close($ch);
 
 
